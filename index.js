@@ -16,6 +16,7 @@ async function run() {
 
     try {
         const serviceCollection = client.db('picturesque').collection('services');
+        const reviewCollection = client.db('picturesque').collection('reviews');
 
         app.get('/home', async (req, res) =>{
             const query = {}
@@ -35,7 +36,15 @@ async function run() {
             const service  = await serviceCollection.findOne(query)
             res.send(service)
         })
+
+        app.post('/reviews', async(req, res) =>{
+            const review = req.body
+            const result = await reviewCollection.insertOne(review)
+            res.send(result)
+        })
+
     }
+    
     finally {
 
     }
