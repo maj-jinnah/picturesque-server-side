@@ -61,17 +61,17 @@ async function run() {
             res.send(result)
 
         })
-        app.patch('/review/:id', async (req, res) => {
+        app.patch('/reviews/:id', async (req, res) => {
             const id = req.params.id
-            const newReview = req.body.newReview
+            const newReview = req.body.updateReview
             console.log(newReview)
-            const filter = { _id: ObjectId(id) }
+            const query = { _id: ObjectId(id) }
             const updateDoc = {
-                $set:{
+                $set: {
                     newReview: newReview
                 }
             }
-            const result = await reviewCollection.updateOne(filter, updateDoc)
+            const result = await reviewCollection.updateOne(query, updateDoc)
             res.send(result)
         })
 
