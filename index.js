@@ -36,6 +36,11 @@ async function run() {
             const service = await serviceCollection.findOne(query)
             res.send(service)
         })
+        app.post('/services', async(req, res) =>{
+            const service = req.body
+            const result = await serviceCollection.insertOne(service)
+            res.send(result)
+        })
 
         app.get('/reviews', async (req, res) => {
             let query = {}
@@ -63,7 +68,7 @@ async function run() {
         })
         app.patch('/reviews/:id', async (req, res) => {
             const id = req.params.id
-            const newReview = req.body.updateReview
+            const newReview = req.body
             console.log(newReview)
             const query = { _id: ObjectId(id) }
             const updateDoc = {
