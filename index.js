@@ -56,10 +56,23 @@ async function run() {
         })
         app.delete('/reviews/:id', async (req, res) => {
             const id = req.params.id
-            const query = {_id : ObjectId(id)}
+            const query = { _id: ObjectId(id) }
             const result = await reviewCollection.deleteOne(query)
             res.send(result)
 
+        })
+        app.patch('/review/:id', async (req, res) => {
+            const id = req.params.id
+            const newReview = req.body.newReview
+            console.log(newReview)
+            const filter = { _id: ObjectId(id) }
+            const updateDoc = {
+                $set:{
+                    newReview: newReview
+                }
+            }
+            const result = await reviewCollection.updateOne(filter, updateDoc)
+            res.send(result)
         })
 
     }
